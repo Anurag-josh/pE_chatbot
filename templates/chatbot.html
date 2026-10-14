@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        AdmitIQ — College Admission Assistant
+    </title>
+
+    <meta
+        name="description"
+        content="AdmitIQ is an AI-powered College Admission Assistant chatbot that helps students navigate applications, essays, deadlines, and more."
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='chatbot.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAV BAR
+====================================================== -->
+
+<nav class="topnav">
+
+    <div class="topnav-inner">
+
+        <a href="/" class="nav-logo">
+            <span class="nav-logo-icon">◆</span>
+            Prompti
+        </a>
+
+        <div class="nav-links">
+
+            <a href="/" class="nav-link active">
+                🎓 AdmitIQ
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     MAIN LAYOUT
+====================================================== -->
+
+<div class="chat-layout">
+
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-header">
+
+            <div class="bot-avatar">
+                <span>🎓</span>
+            </div>
+
+            <h2>AdmitIQ</h2>
+
+            <p class="sidebar-subtitle">
+                College Admission Assistant
+            </p>
+
+        </div>
+
+
+        <div class="sidebar-section">
+
+            <h3 class="sidebar-label">About</h3>
+
+            <p class="sidebar-text">
+                I help high school students and parents navigate the college admission process — from essays to deadlines to interview prep.
+            </p>
+
+        </div>
+
+
+        <div class="sidebar-section">
+
+            <h3 class="sidebar-label">I can help with</h3>
+
+            <ul class="capability-list">
+
+                <li>
+                    <span class="cap-icon">📝</span>
+                    Essay brainstorming & structure
+                </li>
+
+                <li>
+                    <span class="cap-icon">📅</span>
+                    Deadlines & timelines
+                </li>
+
+                <li>
+                    <span class="cap-icon">🏫</span>
+                    School selection strategy
+                </li>
+
+                <li>
+                    <span class="cap-icon">📊</span>
+                    SAT/ACT guidance
+                </li>
+
+                <li>
+                    <span class="cap-icon">💰</span>
+                    Financial aid basics
+                </li>
+
+                <li>
+                    <span class="cap-icon">🎤</span>
+                    Interview preparation
+                </li>
+
+                <li>
+                    <span class="cap-icon">📎</span>
+                    Recommendation letters
+                </li>
+
+                <li>
+                    <span class="cap-icon">🎯</span>
+                    Extracurricular profile
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="sidebar-section">
+
+            <h3 class="sidebar-label">Chatbot Info</h3>
+
+            <div class="info-pills">
+
+                <span class="pill">
+                    🤖 AI-Powered
+                </span>
+
+                <span class="pill">
+                    🔒 No Data Stored
+                </span>
+
+                <span class="pill">
+                    🌐 Groq API
+                </span>
+
+                <span class="pill">
+                    💬 Context-Aware
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="sidebar-footer">
+
+            <button
+                id="resetBtn"
+                class="reset-btn"
+            >
+                🗑 Clear Chat
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =================================================
+         CHAT AREA
+    ================================================== -->
+
+    <main class="chat-main">
+
+
+        <!-- Chat Messages -->
+
+        <div class="chat-messages" id="chatMessages">
+
+            <!-- Welcome message from the bot -->
+
+            <div class="message bot-message">
+
+                <div class="message-avatar">
+                    🎓
+                </div>
+
+                <div class="message-content">
+
+                    <div class="message-bubble">
+                        Hey there! 👋 I'm <strong>AdmitIQ</strong>, your College Admission Assistant.
+                        <br><br>
+                        I'm here to help you navigate the exciting (and sometimes stressful!) world of college applications.
+                        Whether you need help brainstorming essay topics, understanding deadlines, or building your activity list — I've got you covered.
+                        <br><br>
+                        <strong>What would you like to work on today?</strong>
+                    </div>
+
+                    <div class="message-time">
+                        AdmitIQ • Just now
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Typing Indicator -->
+
+        <div class="typing-indicator" id="typingIndicator">
+
+            <div class="message-avatar">
+                🎓
+            </div>
+
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+        </div>
+
+
+        <!-- Chat Input -->
+
+        <div class="chat-input-area">
+
+            <div class="chat-input-wrapper">
+
+                <textarea
+                    id="chatInput"
+                    placeholder="Ask me anything about college admissions..."
+                    rows="1"
+                ></textarea>
+
+                <button
+                    id="sendBtn"
+                    class="send-btn"
+                    aria-label="Send message"
+                >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+
+            </div>
+
+            <p class="input-hint">
+                AdmitIQ is an AI assistant. Verify important information with official college websites.
+            </p>
+
+        </div>
+
+    </main>
+
+
+</div>
+
+
+<!-- Toggle sidebar on mobile -->
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+    ☰
+</button>
+
+
+<script
+    src="{{ url_for('static', filename='chatbot.js') }}"
+></script>
+
+
+</body>
+
+</html>
